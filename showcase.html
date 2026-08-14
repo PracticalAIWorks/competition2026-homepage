@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="高德红外创新应用大赛优秀作品展示，沉淀可学习、可复用、可持续维护的 AI 创新案例。" />
+    <meta name="theme-color" content="#041f45" />
+    <title>优秀作品展示 | 高德红外创新应用大赛</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="showcase.css" />
+    <script src="showcase-data.js" defer></script>
+    <script src="showcase.js" defer></script>
+  </head>
+  <body class="showcase-page">
+    <a class="skip-link" href="#main">跳至主要内容</a>
+    <header class="site-header" id="top">
+      <a class="brand" href="index.html" aria-label="返回大赛首页">
+        <img class="brand-logo" src="assets/logo.png" alt="高德红外" width="220" height="50" />
+        <span class="brand-copy"><strong>创新应用大赛</strong><small>AI INNOVATION CHALLENGE</small></span>
+      </a>
+      <a class="showcase-back" href="index.html">返回大赛首页</a>
+    </header>
+
+    <main id="main">
+      <section class="showcase-hero" aria-labelledby="showcase-title">
+        <div class="showcase-hero-media" role="img" aria-label="高德红外办公楼"></div>
+        <div class="showcase-hero-scrim"></div>
+        <div class="showcase-shell showcase-hero-copy">
+          <p class="eyebrow">优秀作品展示</p>
+          <h1 id="showcase-title">把创新成果<br /><span>沉淀为可复用能力</span></h1>
+          <p>这里将持续收录经审核、脱敏后的优秀作品，展示问题、方法、效果、复用条件与维护状态。</p>
+        </div>
+      </section>
+
+      <section class="showcase-shell showcase-intro" aria-labelledby="intro-title">
+        <div>
+          <h2 id="intro-title">展示不止于获奖</h2>
+          <p>作品展示服务于学习、复用与孵化。发布前须完成团队授权、部门审核、数据脱敏、知识产权及宣传口径审核。</p>
+        </div>
+        <ol class="showcase-principles">
+          <li><strong>01</strong><span>解决什么问题</span></li>
+          <li><strong>02</strong><span>如何实现与验证</span></li>
+          <li><strong>03</strong><span>谁可以复用及限制</span></li>
+        </ol>
+      </section>
+
+      <section class="showcase-library" aria-labelledby="library-title">
+        <div class="showcase-shell">
+          <div class="library-heading">
+            <div><p class="eyebrow">作品库</p><h2 id="library-title">优秀作品</h2></div>
+            <p id="result-count" aria-live="polite">当前共 0 项作品</p>
+          </div>
+          <form class="work-filters" aria-label="作品筛选">
+            <label>竞赛项目<select id="group-filter"><option value="">全部项目</option><option value="提示词设计">提示词设计</option><option value="解决方案设计">解决方案设计</option><option value="智能体搭建">智能体搭建</option></select></label>
+            <label>应用场景<select id="scenario-filter"><option value="">全部场景</option><option value="智能生产">智能生产</option><option value="智慧运营">智慧运营</option><option value="技术研发">技术研发</option><option value="客户服务">客户服务</option><option value="风险防控">风险防控</option><option value="综合创新">综合创新</option></select></label>
+            <label>获奖等级<select id="award-filter"><option value="">全部奖项</option><option value="一等奖">一等奖</option><option value="二等奖">二等奖</option><option value="三等奖">三等奖</option></select></label>
+          </form>
+          <div class="work-grid" id="work-grid" aria-live="polite"></div>
+          <div class="showcase-empty" id="empty-state">
+            <span class="empty-mark" aria-hidden="true">AI</span>
+            <div><p class="eyebrow">案例征集筹备中</p><h3>优秀作品将在评审、脱敏与授权完成后陆续发布</h3><p>发布内容将包含作品摘要、适用场景、效果口径、复用条件、风险提示及维护信息；受限资料仅向获授权人员开放。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="showcase-shell publish-guide" aria-labelledby="publish-title">
+        <div><p class="eyebrow">后续发布</p><h2 id="publish-title">建立可持续维护的作品库</h2></div>
+        <div class="publish-steps">
+          <article><span>1</span><h3>内容准备</h3><p>整理作品名称、组别、场景、价值说明、效果口径、复用条件、风险与维护信息。</p></article>
+          <article><span>2</span><h3>审核发布</h3><p>完成团队授权、部门审核、脱敏与权限分级后，由管理员将记录加入作品数据文件。</p></article>
+          <article><span>3</span><h3>持续维护</h3><p>记录版本、更新时间、维护责任人与推广状态；对失效作品及时下架或标注停止维护。</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div><strong>提质增效、AI 赋能</strong><span>武汉高德红外股份有限公司工会委员会主办</span></div>
+      <div class="footer-links"><a href="index.html#tracks">项目设置</a><a href="index.html#notices">通知公告</a><a href="index.html#apply">报名说明</a></div>
+      <p>承办方：武汉高德红外股份有限公司信息化部</p>
+    </footer>
+  </body>
+</html>
