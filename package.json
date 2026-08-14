@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build:demo": "node scripts/build-demo.mjs",
+    "check:demo": "node scripts/check-demo.mjs",
     "dev": "python3 -m http.server 4173",
     "test": "node scripts/check.mjs"
   }
