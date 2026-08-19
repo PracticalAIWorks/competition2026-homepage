@@ -10,6 +10,9 @@ if (/<link[^>]+rel="stylesheet"/i.test(demo)) errors.push('demo.html 仍依赖�
 if (/<script[^>]+\bsrc=/i.test(demo)) errors.push('demo.html 仍依赖外部脚本');
 if (/\b(?:src|href)="(?:assets\/|styles\.css|app\.js|showcase\.)/i.test(demo)) errors.push('demo.html 仍依赖项目目录中的文件');
 
+const headContent = demo.match(/<head>([\s\S]*?)<\/head>/i)?.[1] ?? '';
+if (/<script\b/i.test(headContent)) errors.push('demo.html 的内联脚本位于正文 DOM 之前');
+
 const embeddedImageCount = (demo.match(/data:image\/(?:jpeg|png|webp);base64,/g) ?? []).length;
 if (embeddedImageCount < 6) errors.push(`demo.html 内嵌图片不足，当前仅检测到 ${embeddedImageCount} 个`);
 

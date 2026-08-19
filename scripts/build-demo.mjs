@@ -52,12 +52,13 @@ const standaloneScripts = `\n    <script>\n${appScript}\n    </script>\n    <scr
 
 let demoHtml = indexHtml
   .replace(/\s*<script src="https:\/\/mcp\.figma\.com[^>]*><\/script>/, '')
-  .replace('    <link rel="stylesheet" href="styles.css" />', `    <style>\n${mergedStyles}\n    </style>`)
-  .replace('    <script src="app.js" defer></script>', standaloneScripts)
+  .replace(/\s*<link rel="stylesheet" href="styles\.css" \/>/, `\n    <style>\n${mergedStyles}\n    </style>`)
+  .replace(/\s*<script src="app\.js" defer><\/script>/, '')
   .replaceAll('href="showcase.html"', 'href="#showcase"')
-  .replace('</main>', `\n      <section class="showcase-page" id="showcase" aria-label="优秀作品展示">${showcaseContent}\n      </section>\n    </main>`);
+  .replace('</main>', `\n      <section class="showcase-page" id="showcase" aria-label="优秀作品展示">${showcaseContent}\n      </section>\n    </main>`)
+  .replace('</body>', `${standaloneScripts}\n  </body>`);
 
-demoHtml = inlineAssets(demoHtml);
+demoHtml = inlineAssets(demoHtml).replace(/[ \t]+$/gm, '');
 
 if (/\b(?:src|href)="(?:assets\/|styles\.css|app\.js|showcase\.)/.test(demoHtml)) {
   throw new Error('单页演示仍包含本地文件依赖');
