@@ -2,13 +2,16 @@
 
 ## Project Structure & Module Organization
 
-This repository is currently a blank starting point. Keep the top level reserved for project-wide configuration and documentation. As the application takes shape, use a predictable layout:
+Keep the top level reserved for project-wide configuration and documentation. The current static portal uses this layout:
 
-- `src/` — production source code, organized by feature or domain.
-- `tests/` — automated tests that mirror the relevant `src/` paths.
-- `assets/` — static, non-secret project assets.
-- `docs/` — architecture notes, decisions, and contributor-facing documentation.
-- `scripts/` — repeatable developer or CI tasks.
+- `src/site/` — production HTML, CSS, and JavaScript for the static portal.
+- `src/assets/` — static, non-secret site assets.
+- `scripts/` — repeatable build and validation tasks.
+- `deploy/` — Docker Compose, Nginx, certificate placeholders, and deployment environment template.
+- `dist/` — generated distributables; never edit these files directly.
+- `docs/` and `reference/` — project documentation and unversioned source material, respectively.
+- `artifacts/` and `archive/` — local visual-check outputs and preserved legacy material; not deployment inputs.
+- `tests/` — future automated tests that mirror the relevant `src/` paths.
 
 Avoid placing generated files, local caches, credentials, or large datasets in version control. Document any new top-level directory in `README.md`.
 

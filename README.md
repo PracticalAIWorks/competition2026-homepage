@@ -20,13 +20,41 @@ npm run dev
 npm run build:demo
 ```
 
-产物为 `demo.html`。演示时只需分发这一个文件，可直接双击在浏览器中打开。
+产物为 `dist/demo/demo.html`。演示时只需分发这一个文件，可直接双击在浏览器中打开。
 
 可检查演示页是否仍为完全内嵌的单文件：
 
 ```sh
 npm run check:demo
 ```
+
+## 发布包
+
+将可直接交付的多页静态站与离线演示统一整理到 `dist/release/`：
+
+```sh
+npm run build:release
+npm run check:release
+```
+
+其中 `dist/release/index.html` 是网站入口，可将整个 `dist/release/` 上传至任意静态 Web 服务器；`dist/release/demo/demo.html` 是可单独分发、离线打开的演示文件。每次构建会重新生成该目录，不要在其中直接维护内容。
+
+### Docker Nginx HTTPS 部署
+
+该项目提供 `deploy/docker-compose.yml`，会只读挂载正式发布包、证书和 Nginx 配置，并开放 80/443。部署前确保域名已解析到服务器、云安全组与系统防火墙仅放行 80/443。
+
+```sh
+cp deploy/.env.example deploy/.env
+# 编辑 .env，将 SERVER_NAME 改为实际域名
+# 将证书链与私钥放入 deploy/certs/fullchain.pem、deploy/certs/privkey.pem
+chmod 600 deploy/certs/privkey.pem
+npm run build:release
+npm run check:release
+docker compose --env-file deploy/.env -f deploy/docker-compose.yml config --quiet
+docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d
+```
+
+HTTP 仅保留 Let's Encrypt HTTP-01 校验路径，其他请求均重定向至 HTTPS。Nginx 启用了 TLS 1.2/1.3、HSTS、CSP、禁止嵌入、只允许静态读请求、只读根文件系统与最小 Linux capabilities。证书续期后执行 `docker compose --env-file deploy/.env -f deploy/docker-compose.yml restart web` 使 Nginx 重新加载证书。
 
 ## 检查
 
@@ -38,14 +66,14 @@ npm test
 
 ## 目录
 
-- `index.html`：页面结构与中文内容。
-- `styles.css`：设计系统、响应式布局和动效。
-- `app.js`：导航、数字动画、筛选、弹窗和申报演示交互。
-- `showcase.html`：优秀作品展示页。
-- `showcase-data.js`：已审核、脱敏且获授权的作品展示数据；初始为空，不展示虚构案例。
-- `showcase.js`、`showcase.css`：作品筛选、空状态和展示页样式。
-- `assets/`：赛事主视觉和案例图片等本地静态资源。
-- `scripts/`：可重复执行的项目检查脚本。
+- `src/site/`：门户页面结构、样式和交互源码。
+- `src/site/assets/`：随静态页面一起发布的赛事主视觉、二维码和其他本地资源。
+- `scripts/`：构建与检查脚本。
+- `deploy/`：Docker Compose、Nginx、证书占位目录和环境变量模板。
+- `dist/`：构建产物，包括离线演示和可部署的发布包；可随时重新生成。
+- `docs/`：PRD 等项目文档。
+- `reference/`：通知公告等原始参考资料，不会被打入发布包。
+- `artifacts/`：本地视觉检查截图，不会被打入发布包。
 
 
 

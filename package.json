@@ -5,7 +5,9 @@
   "scripts": {
     "build:demo": "node scripts/build-demo.mjs",
     "check:demo": "node scripts/check-demo.mjs",
-    "dev": "python3 -m http.server 4173",
+    "build:release": "node scripts/build-release.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "dev": "python3 -m http.server 4173 --directory src/site",
     "test": "node scripts/check.mjs"
   }
 }

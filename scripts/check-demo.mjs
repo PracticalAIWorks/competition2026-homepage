@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
-const demo = readFileSync(new URL('../demo.html', import.meta.url), 'utf8');
+const outputPath = resolve(process.cwd(), process.argv[2] ?? 'dist/demo/demo.html');
+const demo = readFileSync(outputPath, 'utf8');
 const errors = [];
 
 if (!demo.startsWith('<!doctype html>')) errors.push('demo.html 不是完整 HTML 文档');

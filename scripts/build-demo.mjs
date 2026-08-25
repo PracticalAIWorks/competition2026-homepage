@@ -1,9 +1,10 @@
-import { readFileSync, writeFileSync } from 'node:fs';
-import { extname } from 'node:path';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, extname, resolve } from 'node:path';
 
-const root = new URL('../', import.meta.url);
-const read = (path) => readFileSync(new URL(path, root), 'utf8');
-const readBuffer = (path) => readFileSync(new URL(path, root));
+const sourceDirectory = new URL('../src/site/', import.meta.url);
+const assetDirectory = new URL('../src/site/assets/', import.meta.url);
+const read = (path) => readFileSync(new URL(path, sourceDirectory), 'utf8');
+const readBuffer = (path) => readFileSync(new URL(path.replace('assets/', ''), assetDirectory));
 
 const mimeTypes = {
   '.jpg': 'image/jpeg',
@@ -64,5 +65,7 @@ if (/\b(?:src|href)="(?:assets\/|styles\.css|app\.js|showcase\.)/.test(demoHtml)
   throw new Error('单页演示仍包含本地文件依赖');
 }
 
-writeFileSync(new URL('../demo.html', import.meta.url), demoHtml);
-console.log('Generated demo.html with inline styles, scripts, assets, and showcase content.');
+const outputPath = resolve(process.cwd(), process.argv[2] ?? 'dist/demo/demo.html');
+mkdirSync(dirname(outputPath), { recursive: true });
+writeFileSync(outputPath, demoHtml);
+console.log(`Generated ${outputPath} with inline styles, scripts, assets, and showcase content.`);

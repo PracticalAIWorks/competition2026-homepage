@@ -53,8 +53,8 @@ img { display: block; max-width: 100%; }
 .menu-button { display: none; color: var(--text); border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 8px 12px; }
 
 .hero { position: relative; min-height: 100dvh; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding-top: var(--header-height); background: var(--ink-deep); }
-.hero-media { position: absolute; inset: 0; background: url("assets/pic1.jpg") center 58%/cover no-repeat; filter: saturate(.66) contrast(1.04) brightness(.9); transform: scale(1.015); }
-.hero-scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,31,69,.98) 0%, rgba(4,31,69,.9) 42%, rgba(4,31,69,.54) 67%, rgba(4,31,69,.24) 100%), linear-gradient(0deg, rgba(4,31,69,.9) 0%, rgba(4,31,69,.08) 46%, transparent 68%); }
+.hero-media { position: absolute; inset: 0; background: url("assets/pic1.jpg") center 58%/cover no-repeat; filter: saturate(.82) contrast(1.06) brightness(1.08); transform: scale(1.015); }
+.hero-scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,31,69,.98) 0%, rgba(4,31,69,.9) 42%, rgba(4,31,69,.44) 67%, rgba(4,31,69,.1) 100%), linear-gradient(0deg, rgba(4,31,69,.9) 0%, rgba(4,31,69,.08) 46%, transparent 68%); }
 .hero-grid { position: relative; width: var(--shell); margin: auto; display: grid; grid-template-columns: 1.4fr .6fr; gap: 10vw; align-items: center; padding: 5rem 0 3rem; }
 .eyebrow { margin: 0 0 18px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
 /* 栏目标签：“赛事进程”“项目设置”“奖项设置”“服务与支持”“最新通知”“交流社群”。 */

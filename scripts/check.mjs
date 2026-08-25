@@ -1,12 +1,14 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
-const js = readFileSync(new URL('../app.js', import.meta.url), 'utf8');
-const showcaseHtml = readFileSync(new URL('../showcase.html', import.meta.url), 'utf8');
-const showcaseCss = readFileSync(new URL('../showcase.css', import.meta.url), 'utf8');
-const showcaseJs = readFileSync(new URL('../showcase.js', import.meta.url), 'utf8');
-const showcaseData = readFileSync(new URL('../showcase-data.js', import.meta.url), 'utf8');
+const site = (path) => new URL(`../src/site/${path}`, import.meta.url);
+const assetUrl = (path) => new URL(`../src/site/assets/${path}`, import.meta.url);
+const html = readFileSync(site('index.html'), 'utf8');
+const css = readFileSync(site('styles.css'), 'utf8');
+const js = readFileSync(site('app.js'), 'utf8');
+const showcaseHtml = readFileSync(site('showcase.html'), 'utf8');
+const showcaseCss = readFileSync(site('showcase.css'), 'utf8');
+const showcaseJs = readFileSync(site('showcase.js'), 'utf8');
+const showcaseData = readFileSync(site('showcase-data.js'), 'utf8');
 const errors = [];
 const migratedAssets = ['logo.png', 'logo-white.png', 'pic1.jpg', 'AI创新应用大赛交流群.png', '“提质增效 AI赋能”创新应用大赛报名表二维码.png'];
 
@@ -15,11 +17,11 @@ for (const file of [html, css, js, showcaseHtml, showcaseCss, showcaseJs, showca
 }
 
 for (const file of ['showcase.html', 'showcase.css', 'showcase.js', 'showcase-data.js']) {
-  if (!existsSync(new URL(`../${file}`, import.meta.url))) errors.push(`缺少优秀作品展示文件: ${file}`);
+  if (!existsSync(site(file))) errors.push(`缺少优秀作品展示文件: ${file}`);
 }
 
-for (const asset of migratedAssets) {
-  if (!existsSync(new URL(`../assets/${asset}`, import.meta.url))) errors.push(`缺少迁移后的静态资源: assets/${asset}`);
+for (const assetName of migratedAssets) {
+  if (!existsSync(assetUrl(assetName))) errors.push(`缺少静态资源: src/site/assets/${assetName}`);
 }
 
 for (const content of [html, css, showcaseHtml, showcaseCss]) {
