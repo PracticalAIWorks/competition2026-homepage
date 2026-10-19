@@ -325,3 +325,16 @@ img { display: block; max-width: 100%; }
   .site-header, .button-secondary, .hero-brief, .hero-stats { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .button-secondary, .hero-brief, .hero-stats { background: var(--ink-deep); }
 }
+
+/* 整页轮播控制：固定在右下角，用于开始或暂停自动滚动展示 */
+.carousel-toggle { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 9px; padding: 11px 16px; border: 1px solid rgba(255,255,255,.26); border-radius: 999px; background: rgba(7,26,43,.88); color: #fff; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 26px rgba(4,20,38,.32); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.carousel-toggle:hover { background: var(--accent); border-color: transparent; }
+.carousel-toggle:focus-visible { outline: 3px solid rgba(201,31,45,.45); outline-offset: 2px; }
+.carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .5; }
+.carousel-toggle[aria-pressed="true"] { border-color: rgba(91,228,155,.42); }
+.carousel-toggle[aria-pressed="true"] .carousel-dot { background: #5be49b; opacity: 1; animation: carousel-pulse 1.6s ease-in-out infinite; }
+@keyframes carousel-pulse { 50% { opacity: .3; } }
+
+@media (max-width: 767px) {
+  .carousel-toggle { right: 12px; bottom: 12px; padding: 9px 13px; }
+}

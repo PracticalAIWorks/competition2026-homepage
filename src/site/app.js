@@ -77,3 +77,85 @@ if ('IntersectionObserver' in window) {
   }, { rootMargin: '-35% 0px -55%', threshold: 0 });
   sections.forEach((section) => navObserver.observe(section));
 }
+
+/* 整页轮播：自动向下滚动依次展示各区块，每段停留 5 秒，到底后回到顶部继续循环。 */
+const carouselToggle = document.querySelector('.carousel-toggle');
+if (carouselToggle) {
+  const carouselSections = [...document.querySelectorAll('main > section')];
+  const carouselDwellMs = 5000;
+  let carouselRunning = false;
+  let carouselTimer = 0;
+  let carouselIndex = 0;
+
+  const carouselTargetTop = (index) => Math.max(0,
+    carouselSections[index].getBoundingClientRect().top + window.scrollY - document.querySelector('.site-header').offsetHeight);
+
+  const detectCarouselIndex = () => {
+    let index = 0;
+    carouselSections.forEach((section, order) => {
+      if (carouselTargetTop(order) <= window.scrollY + 4) index = order;
+    });
+    return index;
+  };
+
+  const settleCarouselScroll = () => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      window.removeEventListener('scrollend', finish);
+      startCarouselDwell();
+    };
+    window.addEventListener('scrollend', finish);
+    setTimeout(finish, 1600);
+  };
+
+  const startCarouselDwell = () => {
+    if (!carouselRunning) return;
+    clearTimeout(carouselTimer);
+    carouselTimer = setTimeout(() => {
+      carouselIndex = (carouselIndex + 1) % carouselSections.length;
+      if (carouselIndex === 0) {
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo({ top: 0 });
+        document.documentElement.style.scrollBehavior = '';
+      } else {
+        window.scrollTo({ top: carouselTargetTop(carouselIndex), behavior: 'smooth' });
+      }
+      settleCarouselScroll();
+    }, carouselDwellMs);
+  };
+
+  const setCarousel = (running) => {
+    carouselRunning = running;
+    clearTimeout(carouselTimer);
+    carouselToggle.setAttribute('aria-pressed', String(running));
+    carouselToggle.querySelector('.carousel-state').textContent = running ? '轮播中' : '已暂停';
+    if (running) {
+      carouselIndex = detectCarouselIndex();
+      startCarouselDwell();
+    }
+  };
+
+  carouselToggle.addEventListener('click', () => setCarousel(!carouselRunning));
+
+  const stopCarousel = () => {
+    if (carouselRunning) setCarousel(false);
+  };
+  window.addEventListener('wheel', stopCarousel, { passive: true });
+  window.addEventListener('touchmove', stopCarousel, { passive: true });
+  window.addEventListener('keydown', (event) => {
+    if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key)) stopCarousel();
+  });
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('.carousel-toggle')) return;
+    if (event.target.closest('a, button')) stopCarousel();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearTimeout(carouselTimer);
+    else if (carouselRunning) startCarouselDwell();
+  });
+
+  const carouselParam = new URLSearchParams(window.location.search).get('carousel');
+  setCarousel(!isFigmaCapture && !['0', 'off'].includes(carouselParam));
+}
